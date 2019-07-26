@@ -28,7 +28,7 @@ class PostsController extends Controller
             'text' => 'required|Max:2000',
         ]);
 
-        $posts = new Post;
+        $posts = new Post();
         $posts->user_id = Auth::user()->id;
         $posts->title = $request->title;
         $posts->text = $request->text;

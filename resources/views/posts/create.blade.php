@@ -34,6 +34,7 @@
                             本文
                         </label>
 
+
                         <textarea
                             id="text"
                             name="text"
