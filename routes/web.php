@@ -18,8 +18,9 @@
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/','PostsController@index')->name('top');
 
-Route::resource('posts','PostsController', ['only'=> ['create','store','show']]);
+Route::get('/', 'PostsController@index')->name('top');
+
+Route::resource('posts', 'PostsController', ['only' => ['create', 'store', 'show']]);
 
-Route::resource('comments', 'CommentsController', ['onyl'=>['store']]);
+Route::resource('comments', 'CommentsController', ['only' => ['store']]);

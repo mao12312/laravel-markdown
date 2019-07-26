@@ -1,7 +1,12 @@
 @extends('layouts.app')
 
+@section('head')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+@endsection
+
 @section('content')
-<div class="container mt-4">
+    <div class="container mt-4">
         <div class="border p-4">
             <h1 class="h5 mb-4">
                 投稿作成
@@ -16,11 +21,11 @@
                             タイトル
                         </label>
                         <input
-                            id="title"
-                            name="title"
-                            class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}"
-                            value="{{ old('title') }}"
-                            type="text"
+                                id="title"
+                                name="title"
+                                class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}"
+                                value="{{ old('title') }}"
+                                type="text"
                         >
                         @if ($errors->has('title'))
                             <div class="invalid-feedback">
@@ -31,16 +36,24 @@
 
                     <div class="form-group">
                         <label for="text">
-                            本文
+                            投稿文
                         </label>
 
 
-                        <textarea
-                            id="text"
-                            name="text"
-                            class="form-control {{ $errors->has('text') ? 'is-invalid' : '' }}"
-                            rows="4"
-                        >{{ old('text') }}</textarea>
+                        {{--<textarea--}}
+                        {{--id="text"--}}
+                        {{--name="text"--}}
+                        {{--class="form-control {{ $errors->has('text') ? 'is-invalid' : '' }}"--}}
+                        {{--rows="4"--}}
+                        {{-->{{ old('text') }}</textarea>--}}
+
+                        <textarea id="editor" name="text" rows="8" cols="40">{{ old('text') }}</textarea>
+
+                        <script>
+                            var simplemde = new SimpleMDE({element: document.getElementById("editor")});
+                        </script>
+
+
                         @if ($errors->has('text'))
                             <div class="invalid-feedback">
                                 {{ $errors->first('text') }}
@@ -60,5 +73,6 @@
                 </fieldset>
             </form>
         </div>
-    </div>    
+    </div>
+
 @endsection

@@ -1,14 +1,23 @@
 @extends('layouts.app')
 
+@section('head')
+    {{--<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">--}}
+    {{--<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>--}}
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+@endsection
+
 @section('content')
-<div class="container mt-4">
+    <div class="container mt-4">
         <div class="border p-4">
             <h1 class="h5 mb-4">
                 {{ $post->title }}
             </h1>
 
             <p class="mb-5">
-                {!! nl2br(e($post->text)) !!}
+                {{--{!! nl2br(e($post->text)) !!}--}}
+                {!! $post->mark_text !!}
+
+
             </p>
 
             <section>
@@ -17,39 +26,39 @@
                 </h2>
 
                 <form class="mb-4" method="POST" action="{{ route('comments.store') }}">
-    @csrf
+                    @csrf
 
-    <input
-        name="post_id"
-        type="hidden"
-        value="{{ $post->id }}"
-    >
+                    <input
+                            name="post_id"
+                            type="hidden"
+                            value="{{ $post->id }}"
+                    >
 
-    <div class="form-group">
-        <label for="body">
-            本文
-        </label>
+                    <div class="form-group">
+                        <label for="body">
+                            本文
+                        </label>
 
-        <textarea
-            type="text" 
-            id="text"
-            name="text"
-            class="form-control {{ $errors->has('text') ? 'is-invalid' : '' }}"
-            rows="4"
-        >{{ old('text') }}</textarea>
-        @if ($errors->has('text'))
-            <div class="invalid-feedback">
-                {{ $errors->first('text') }}
-            </div>
-        @endif
-    </div>
+                        <textarea
+                                type="text"
+                                id="text"
+                                name="text"
+                                class="form-control {{ $errors->has('text') ? 'is-invalid' : '' }}"
+                                rows="4"
+                        >{{ old('text') }}</textarea>
+                        @if ($errors->has('text'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('text') }}
+                            </div>
+                        @endif
+                    </div>
 
-    <div class="mt-4">
-        <button type="submit" class="btn btn-primary">
-            コメントする
-        </button>
-    </div>
-</form>
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-primary">
+                            コメントする
+                        </button>
+                    </div>
+                </form>
                 @forelse($post->comments as $comment)
                     <div class="border-top p-4">
                         <time class="text-secondary">
@@ -57,6 +66,7 @@
                         </time>
                         <p class="mt-2">
                             {!! nl2br(e($comment->text)) !!}
+{{--                            {!! $comment->mark_text !!}--}}
                         </p>
                     </div>
                 @empty
