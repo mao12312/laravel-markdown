@@ -28,17 +28,18 @@ class PostsController extends Controller
             'text' => 'required|Max:2000',
         ]);
 
-        // if ($params->fails()) {
-        //     return redirect('/posts/index')
-        //         ->withInput()
-        //         ->withErrors($params);
-        // }
-
         $posts = new Post;
         $posts->user_id = Auth::user()->id;
         $posts->title = $request->title;
         $posts->text = $request->text;
         $posts->save();
         return redirect()->route('top');
+    }
+
+    public function show($post_id){
+        $post = Post::findOrFail($post_id);
+
+        return view('posts.show',[
+            'post'=>$post,]);
     }
 }
