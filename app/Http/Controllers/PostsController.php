@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Post;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,10 +22,10 @@ class PostsController extends Controller
 
     public function store(Request $request)
     {
-//        $params = $request->validate([
-//            'title' => 'required|Max:50',
-//            'text' => 'required|Max:2000',
-//        ]);
+        $params = $request->validate([
+            'title' => 'required|Max:50',
+            'text' => 'required|Max:2000',
+        ]);
 
         $posts = new Post();
         $posts->user_id = Auth::user()->id;
