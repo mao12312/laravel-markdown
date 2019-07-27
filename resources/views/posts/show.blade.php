@@ -12,14 +12,12 @@
             <h1 class="h5 mb-4">
                 {{ $post->title }}
             </h1>
-
-            <p class="mb-5">
-                {{--{!! nl2br(e($post->text)) !!}--}}
-                {!! $post->mark_text !!}
-
-
-            </p>
-
+            <div class="wordbreak">
+                <p class="mb-5">
+                    {{--                {!! nl2br(e($post->text)) !!}--}}
+                    {!! $post->mark_text !!}
+                </p>
+            </div>
             <section>
                 <h2 class="h5 mb-4">
                     コメント
@@ -66,7 +64,7 @@
                         </time>
                         <p class="mt-2">
                             {!! nl2br(e($comment->text)) !!}
-{{--                            {!! $comment->mark_text !!}--}}
+                            {{--                            {!! $comment->mark_text !!}--}}
                         </p>
                     </div>
                 @empty

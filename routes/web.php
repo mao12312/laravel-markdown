@@ -20,7 +20,12 @@ Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', 'PostsController@index')->name('top');
-
-Route::resource('posts', 'PostsController', ['only' => ['create', 'store', 'show']]);
 
-Route::resource('comments', 'CommentsController', ['only' => ['store']]);
+Route::group(['middleware' => 'auth'], function (){
+    Route::resource('posts', 'PostsController', ['only' => ['create','show', 'store']]);
+    Route::resource('comments', 'CommentsController', ['only' => ['store']]);
+});
+
+
+
+

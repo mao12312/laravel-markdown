@@ -30,4 +30,9 @@ class Post extends Model
     {
         return $this->parse();
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

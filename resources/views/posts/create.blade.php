@@ -47,7 +47,19 @@
                         {{--rows="4"--}}
                         {{-->{{ old('text') }}</textarea>--}}
 
-                        <textarea id="editor" name="text" rows="8" cols="40">{{ old('text') }}</textarea>
+                        <textarea id="editor" name="text" rows="8" cols="40">{{ old('text') }}
+### 前提・実現したいこと
+
+ここに質問の内容を詳しく書いてください。
+
+### 発生している問題
+
+### 試したこと
+
+ここに問題に対して試したことを記載してください。
+
+### ここにより詳細な情報を記載してください。
+                        </textarea>
 
                         <script>
                             var simplemde = new SimpleMDE({element: document.getElementById("editor")});
