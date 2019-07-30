@@ -34,7 +34,7 @@
 
                     <div class="form-group">
                         <label for="body">
-                            本文
+                            投稿文
                         </label>
 
                         <textarea
