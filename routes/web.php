@@ -25,7 +25,3 @@ Route::group(['middleware' => 'auth'], function (){
     Route::resource('posts', 'PostsController', ['only' => ['create','show', 'store']]);
     Route::resource('comments', 'CommentsController', ['only' => ['store']]);
 });
-
-
-
-

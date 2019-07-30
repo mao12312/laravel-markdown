@@ -1,8 +1,32 @@
 @extends('layouts.app')
 
 @section('head')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+
+    {{--simplemde--}}
+    {{--<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">--}}
+    {{--<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>--}}
+
+    {{--codemirror--}}
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- UI Kit -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.27.5/css/uikit.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.27.5/js/uikit.min.js"></script>
+
+    <!-- Codemirror and marked dependencies -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/codemirror.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/codemirror.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/mode/markdown/markdown.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/addon/mode/overlay.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/mode/xml/xml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/mode/gfm/gfm.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js'></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- HTML editor CSS and JavaScript -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.27.5/css/components/htmleditor.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.27.5/js/components/htmleditor.js"></script>
 @endsection
 
 @section('content')
@@ -47,7 +71,23 @@
                         {{--rows="4"--}}
                         {{-->{{ old('text') }}</textarea>--}}
 
-                        <textarea id="editor" name="text" rows="8" cols="40">{{ old('text') }}
+                        {{--simplemde--}}
+                        {{--<textarea id="editor" name="text" rows="8" cols="40">{{ old('text') }}--}}
+{{--### 前提・実現したいこと--}}
+
+{{--ここに質問の内容を詳しく書いてください。--}}
+
+{{--### 発生している問題--}}
+
+{{--### 試したこと--}}
+
+{{--ここに問題に対して試したことを記載してください。--}}
+
+{{--### ここにより詳細な情報を記載してください。--}}
+                        {{--</textarea>--}}
+
+                        {{--codemirror--}}
+                        <textarea data-uk-htmleditor="{markdown:true}"  name="text">
 ### 前提・実現したいこと
 
 ここに質問の内容を詳しく書いてください。
@@ -58,20 +98,19 @@
 
 ここに問題に対して試したことを記載してください。
 
-### ここにより詳細な情報を記載してください。
-                        </textarea>
+### ここにより詳細な情報を記載してください。</textarea>
 
-                        <script>
-                            var simplemde = new SimpleMDE({element: document.getElementById("editor")});
-                        </script>
+                        {{--<script>--}}
+                            {{--var simplemde = new SimpleMDE({element: document.getElementById("editor")});--}}
+                        {{--</script>--}}
 
 
-                        @if ($errors->has('text'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('text') }}
-                            </div>
-                        @endif
-                    </div>
+                        {{--@if ($errors->has('text'))--}}
+                            {{--<div class="invalid-feedback">--}}
+                                {{--{{ $errors->first('text') }}--}}
+                            {{--</div>--}}
+                        {{--@endif--}}
+                    {{--</div>--}}
 
                     <div class="mt-5">
                         <a class="btn btn-secondary" href="{{ route('top') }}">
