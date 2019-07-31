@@ -34,10 +34,25 @@ class PostsController extends Controller
         return redirect()->route('top');
     }
 
-    public function show($post_id){
+    public function show($post_id)
+    {
         $post = Post::findOrFail($post_id);
 
-        return view('posts.show',[
-            'post'=>$post,]);
+        return view('posts.show', [
+            'post' => $post,]);
+    }
+
+    public function imagesUploadPost(Request $request)
+    {
+        $param = $request->validate([
+           'uploadFile' => 'required',
+        ]);
+
+        foreach ($request->file('uploadFile') as $key => $value){
+            $imageName = time(). $key . '.' .$value->getClientOriginalExtension();
+            $value->move(public_path('images'), $imageName);
+        }
+
+        return response()->json(['success' => 'Images Upload Successfully.']);
     }
 }

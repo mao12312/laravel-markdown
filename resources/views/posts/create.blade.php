@@ -11,11 +11,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!-- UI Kit -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.27.5/css/uikit.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.27.5/css/uikit.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.27.5/js/uikit.min.js"></script>
 
     <!-- Codemirror and marked dependencies -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/codemirror.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/codemirror.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/codemirror.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/mode/markdown/markdown.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/addon/mode/overlay.js"></script>
@@ -25,8 +25,28 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- HTML editor CSS and JavaScript -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.27.5/css/components/htmleditor.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.27.5/css/components/htmleditor.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.27.5/js/components/htmleditor.js"></script>
+
+    <!-- ImagesUpload -->
+    {{--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">--}}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+
+    <style type="text/css">
+        input[type=file]{
+            display: inline;
+        }
+        #image_preview{
+            border: 1px solid black;
+            padding: 10px;
+        }
+        #image_preview img {
+            width: 200px;
+            padding: 5px;
+        }
+    </style>
+
 @endsection
 
 @section('content')
@@ -59,6 +79,14 @@
                     </div>
 
                     <div class="form-group">
+                        <form action="{{ route('images.upload') }}" method="post" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <input type="file" id="uploadFile" name="uploadFile[]" multiple/>
+                        </form>
+                        <div id="image_preview"></div>
+                    </div>
+
+                    <div class="form-group">
                         <label for="text">
                             投稿文
                         </label>
@@ -73,21 +101,21 @@
 
                         {{--simplemde--}}
                         {{--<textarea id="editor" name="text" rows="8" cols="40">{{ old('text') }}--}}
-{{--### 前提・実現したいこと--}}
+                        {{--### 前提・実現したいこと--}}
 
-{{--ここに質問の内容を詳しく書いてください。--}}
+                        {{--ここに質問の内容を詳しく書いてください。--}}
 
-{{--### 発生している問題--}}
+                        {{--### 発生している問題--}}
 
-{{--### 試したこと--}}
+                        {{--### 試したこと--}}
 
-{{--ここに問題に対して試したことを記載してください。--}}
+                        {{--ここに問題に対して試したことを記載してください。--}}
 
-{{--### ここにより詳細な情報を記載してください。--}}
+                        {{--### ここにより詳細な情報を記載してください。--}}
                         {{--</textarea>--}}
 
                         {{--codemirror--}}
-                        <textarea data-uk-htmleditor="{markdown:true}"  name="text">
+                        <textarea data-uk-htmleditor="{markdown:true}" name="text">
 ### 前提・実現したいこと
 
 ここに質問の内容を詳しく書いてください。
@@ -101,29 +129,43 @@
 ### ここにより詳細な情報を記載してください。</textarea>
 
                         {{--<script>--}}
-                            {{--var simplemde = new SimpleMDE({element: document.getElementById("editor")});--}}
+                        {{--var simplemde = new SimpleMDE({element: document.getElementById("editor")});--}}
                         {{--</script>--}}
 
 
                         {{--@if ($errors->has('text'))--}}
-                            {{--<div class="invalid-feedback">--}}
-                                {{--{{ $errors->first('text') }}--}}
-                            {{--</div>--}}
+                        {{--<div class="invalid-feedback">--}}
+                        {{--{{ $errors->first('text') }}--}}
+                        {{--</div>--}}
                         {{--@endif--}}
-                    {{--</div>--}}
+                        {{--</div>--}}
 
-                    <div class="mt-5">
-                        <a class="btn btn-secondary" href="{{ route('top') }}">
-                            キャンセル
-                        </a>
+                        <div class="mt-5">
+                            <a class="btn btn-secondary" href="{{ route('top') }}">
+                                キャンセル
+                            </a>
 
-                        <button type="submit" class="btn btn-primary">
-                            投稿する
-                        </button>
+                            <button type="submit" class="btn btn-primary">
+                                投稿する
+                            </button>
+                        </div>
                     </div>
                 </fieldset>
             </form>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $("#uploadFile").change(function () {
+            $('#image_preview').html("");
+            var total_file = document.getElementById("uploadFile").files.length;
+            for (var i = 0; i < total_file; i++) {
+                $('#image_preview').append("<img src='" + URL.createObjectURL(event.target.files[i]) + "'>");
+            }
+        });
+        $('form').ajaxForm(function () {
+            alert("Uploaded SuccessFully");
+        });
+    </script>
 
 @endsection
