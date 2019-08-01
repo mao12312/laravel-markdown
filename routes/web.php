@@ -22,7 +22,7 @@ Auth::routes();
 Route::get('/', 'PostsController@index')->name('top');
 
 Route::group(['middleware' => 'auth'], function (){
-    Route::resource('posts', 'PostsController', ['only' => ['create','show', 'store']]);
+    Route::resource('posts', 'PostsController', ['only' => ['create','show', 'store', 'destroy']]);
     Route::resource('comments', 'CommentsController', ['only' => ['store']]);
     Route::post('images-upload', 'PostController@imagesUploadPost')->name('images.upload');
 });

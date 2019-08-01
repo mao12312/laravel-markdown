@@ -9,6 +9,13 @@
 @section('content')
     <div class="container mt-4">
         <div class="border p-4">
+
+            <form  method="POST" style="display: inline-block" action="{{route('posts.destroy', ['post'=> $post])}}">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger">削除する</button>
+            </form>
+
             <h1 class="h5 mb-4">
                 {{ $post->title }}
             </h1>

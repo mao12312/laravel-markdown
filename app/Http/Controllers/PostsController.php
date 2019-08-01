@@ -10,7 +10,7 @@ class PostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->get();
+        $posts = Post::with(['comments'])->orderBy('created_at', 'desc')->get();
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -45,14 +45,32 @@ class PostsController extends Controller
     public function imagesUploadPost(Request $request)
     {
         $param = $request->validate([
-           'uploadFile' => 'required',
+            'uploadFile' => 'required',
         ]);
 
-        foreach ($request->file('uploadFile') as $key => $value){
-            $imageName = time(). $key . '.' .$value->getClientOriginalExtension();
+        foreach ($request->file('uploadFile') as $key => $value) {
+            $imageName = time() . $key . '.' . $value->getClientOriginalExtension();
             $value->move(public_path('images'), $imageName);
         }
 
         return response()->json(['success' => 'Images Upload Successfully.']);
+    }
+
+    public function destroy($post_id)
+    {
+        $post = Post::findOrFail($post_id);
+
+        \DB::transaction(function () use ($post) {
+            $post->comments()->delete();
+            $post->delete();
+        });
+
+//        $post = Post::findOrFail($post_id);
+//        \DB::transaction(function () use ($post) {
+//            $post->comments()->delete();
+//            $post->delete();
+//        });
+
+        return redirect()->route('top');
     }
 }
