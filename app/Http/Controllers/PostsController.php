@@ -30,6 +30,7 @@ class PostsController extends Controller
         $posts->user_id = Auth::user()->id;
         $posts->title = $request->title;
         $posts->text = $request->text;
+
         $posts->save();
         return redirect()->route('top');
     }
@@ -52,6 +53,7 @@ class PostsController extends Controller
             $imageName = time() . $key . '.' . $value->getClientOriginalExtension();
             $value->move(public_path('images'), $imageName);
         }
+
 
         return response()->json(['success' => 'Images Upload Successfully.']);
     }
