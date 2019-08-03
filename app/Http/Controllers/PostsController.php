@@ -52,6 +52,10 @@ class PostsController extends Controller
         foreach ($request->file('uploadFile') as $key => $value) {
             $imageName = time() . $key . '.' . $value->getClientOriginalExtension();
             $value->move(public_path('images'), $imageName);
+            $posts = new Post();
+            $posts->post_img = $request->uploadFile;
+
+            $posts->save();
         }
 
 
