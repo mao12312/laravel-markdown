@@ -40,19 +40,20 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
-    <style type="text/css">
-        input[type=file]{
-            display: inline;
-        }
-        #image_preview{
-            border: 1px solid black;
-            padding: 10px;
-        }
-        #image_preview img {
-            width: 200px;
-            padding: 5px;
-        }
-    </style>
+    {{--image display--}}
+    {{--<style type="text/css">--}}
+        {{--input[type=file]{--}}
+            {{--display: inline;--}}
+        {{--}--}}
+        {{--#image_preview{--}}
+            {{--border: 1px solid black;--}}
+            {{--padding: 10px;--}}
+        {{--}--}}
+        {{--#image_preview img {--}}
+            {{--width: 200px;--}}
+            {{--padding: 5px;--}}
+        {{--}--}}
+    {{--</style>--}}
 
 @endsection
 
