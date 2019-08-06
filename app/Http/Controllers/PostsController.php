@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\PostImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,8 +31,39 @@ class PostsController extends Controller
         $posts->user_id = Auth::user()->id;
         $posts->title = $request->title;
         $posts->text = $request->text;
-
         $posts->save();
+
+
+        $files = $request->file('file');
+
+        foreach ($files as $file){
+        $filename = $file->getClientOriginalName();
+        $file->storeAs('post_img', $filename);
+
+        $posts->images()->create([
+            'path' => $filename,
+//            'post_id'=> $request->id,
+        ]);
+
+
+//            $post_images = new PostImage();
+//            $post_images->post_id = $request->post_id;
+//            $post_images->path = $filename;
+//            $post_images->save();
+        }
+
+//        foreach ($request->file('files') as $index=> $e) {
+//
+//            $post_image = new PostImage();
+////            $ext = $e['image']->guessExtension();
+//            $filename = "{$e['image']->getClientOriginalName()}";
+//            $path = $e['image']->storeAs('images', $filename);
+//            // photosメソッドにより、商品に紐付けられた画像を保存する
+//            $post_image->create(['path'=> $path]);
+//            $post_image->save();
+//        }
+
+
         return redirect()->route('top');
     }
 
@@ -43,25 +75,6 @@ class PostsController extends Controller
             'post' => $post,]);
     }
 
-    public function imagesUploadPost(Request $request)
-    {
-        $param = $request->validate([
-            'uploadFile' => 'required',
-        ]);
-
-        foreach ($request->file('uploadFile') as $key => $value) {
-            $imageName = time() . $key . '.' . $value->getClientOriginalExtension();
-            $value->move(public_path('images'), $imageName);
-            $posts = new Post();
-            $posts->post_img = $request->uploadFile;
-
-            $posts->save();
-        }
-
-
-        return response()->json(['success' => 'Images Upload Successfully.']);
-    }
-
     public function destroy($post_id)
     {
         $post = Post::findOrFail($post_id);
@@ -70,12 +83,6 @@ class PostsController extends Controller
             $post->comments()->delete();
             $post->delete();
         });
-
-//        $post = Post::findOrFail($post_id);
-//        \DB::transaction(function () use ($post) {
-//            $post->comments()->delete();
-//            $post->delete();
-//        });
 
         return redirect()->route('top');
     }

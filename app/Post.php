@@ -12,6 +12,11 @@ class Post extends Model
         'text',
     ];
 
+    public function images()
+    {
+        return $this->hasMany('App\PostImage');
+    }
+
     public function comments()
     {
         return $this->hasMany('App\Comment');

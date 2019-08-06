@@ -33,12 +33,14 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
 
+
+
     {{--multi image uploads JS  bootstrap-fileinput--}}
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.5/js/fileinput.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.5/themes/fa/theme.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    {{--<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>--}}
+    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.5/js/fileinput.min.js"></script>--}}
+    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.5/themes/fa/theme.js"></script>--}}
+    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>--}}
+    {{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" type="text/javascript"></script>--}}
 
     {{--image display--}}
     {{--<style type="text/css">--}}
@@ -64,7 +66,7 @@
                 投稿作成
             </h1>
 
-            <form method="POST" action="{{ route('posts.store') }}">
+            <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
                 @csrf
 
                 <fieldset class="mb-4">
@@ -86,13 +88,8 @@
                         @endif
                     </div>
 
-                    <div class="form-group">
-                        <form action="{{ route('images.upload') }}" method="post" enctype="multipart/form-data">
-                            {{ csrf_field() }}
-                            <input type="file" id="uploadFile" name="uploadFile[]" multiple/>
-                        </form>
-                        <div id="image_preview"></div>
-                    </div>
+                    <label for="photo">画像ファイル（複数可）:</label>
+                    <input type="file" class="form-control" name="file[]" multiple>
 
                     <div class="form-group">
                         <label for="text">
@@ -163,17 +160,21 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-        $("#uploadFile").change(function () {
-            $('#image_preview').html("");
-            var total_file = document.getElementById("uploadFile").files.length;
-            for (var i = 0; i < total_file; i++) {
-                $('#image_preview').append("<img src='" + URL.createObjectURL(event.target.files[i]) + "'>");
-            }
-        });
-        $('form').ajaxForm(function () {
-            alert("Uploaded SuccessFully");
-        });
+    <script>
+
     </script>
+
+    {{--<script type="text/javascript">--}}
+        {{--$("#uploadFile").change(function () {--}}
+            {{--$('#image_preview').html("");--}}
+            {{--var total_file = document.getElementById("uploadFile").files.length;--}}
+            {{--for (var i = 0; i < total_file; i++) {--}}
+                {{--$('#image_preview').append("<img src='" + URL.createObjectURL(event.target.files[i]) + "'>");--}}
+            {{--}--}}
+        {{--});--}}
+        {{--$('form').ajaxForm(function () {--}}
+            {{--alert("Uploaded SuccessFully");--}}
+        {{--});--}}
+    {{--</script>--}}
 
 @endsection
