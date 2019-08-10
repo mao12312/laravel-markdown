@@ -7,6 +7,7 @@
                  投稿の作成
              </a>
          </div>
+         <img src="{{asset('/storage/post_img/gopher.png')}}" alt="img">
         @foreach ($posts as $post)
             <div class="card mb-4">
                 <div class="card-header">

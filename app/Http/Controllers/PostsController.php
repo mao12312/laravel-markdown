@@ -38,7 +38,7 @@ class PostsController extends Controller
 
         foreach ($files as $file){
         $filename = $file->getClientOriginalName();
-        $file->storeAs('post_img', $filename);
+        $file->storeAs('/public/post_img', $filename);
 
         $posts->images()->create([
             'path' => $filename,
