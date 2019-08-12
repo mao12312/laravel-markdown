@@ -19,6 +19,7 @@
             <h1 class="h5 mb-4">
                 {{ $post->title }}
             </h1>
+{{--            <img src="{{'/storage/post_img/'.$post->post_image->path}}" alt="">--}}
             <div class="wordbreak">
                 <p class="mb-5">
                     {{--                {!! nl2br(e($post->text)) !!}--}}
