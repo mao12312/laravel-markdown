@@ -10,7 +10,7 @@
     <div class="container mt-4">
         <div class="border p-4">
 
-            <form  method="POST" style="display: inline-block" action="{{route('posts.destroy', ['post'=> $post])}}">
+            <form method="POST" style="display: inline-block" action="{{route('posts.destroy', ['post'=> $post])}}">
                 @csrf
                 @method('DELETE')
                 <button class="btn btn-danger">削除する</button>
@@ -19,7 +19,6 @@
             <h1 class="h5 mb-4">
                 {{ $post->title }}
             </h1>
-{{--            <img src="{{'/storage/post_img/'.$post->$post_image->path}}" alt="">--}}
             <div class="wordbreak">
                 <p class="mb-5">
                     {{--                {!! nl2br(e($post->text)) !!}--}}
@@ -75,6 +74,12 @@
                             {{--                            {!! $comment->mark_text !!}--}}
                         </p>
                     </div>
+                @empty
+                    <p>コメントはまだありません。</p>
+                @endforelse
+
+                @forelse($post->images as $post_image)
+                    <img src="{{'/storage/post_img/'.$post_image->path}}" alt="">
                 @empty
                     <p>コメントはまだありません。</p>
                 @endforelse
