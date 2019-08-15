@@ -25,6 +25,11 @@
                     {!! $post->mark_text !!}
                 </p>
             </div>
+            @forelse($post->images as $post_image)
+                <img src="{{'/storage/post_img/'.$post_image->path}}" alt="">
+            @empty
+                <p>コメントはまだありません。</p>
+            @endforelse
             <section>
                 <h2 class="h5 mb-4">
                     コメント
@@ -78,11 +83,6 @@
                     <p>コメントはまだありません。</p>
                 @endforelse
 
-                @forelse($post->images as $post_image)
-                    <img src="{{'/storage/post_img/'.$post_image->path}}" alt="">
-                @empty
-                    <p>コメントはまだありません。</p>
-                @endforelse
             </section>
         </div>
     </div>
