@@ -27,3 +27,8 @@ Route::group(['middleware' => 'auth'], function (){
     Route::post('images-upload', 'PostController@imagesUploadPost')->name('images.upload');
 });
 
+Route::post('/like',[
+    'uses' => 'PostController@postLikePost',
+    'as' => 'like'
+]);
+

@@ -28,6 +28,11 @@
                         投稿日時 {{ $post->created_at->format('Y.m.d') }}
                     </span>
 
+                    @if(Auth::user())
+                    <a href="#" class="like">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 1 ? 'You like this post' : 'Like' : 'Like'  }}</a>|
+                    <a href="#" class="like">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 0 ? 'You don\'t like this post' : 'Dislike' : 'Dislike'  }}</a>
+                    @endif
+
                     @if ($post->comments->count())
                         <span class="badge badge-primary">
                             コメント {{ $post->comments->count() }}件
@@ -38,5 +43,10 @@
         @endforeach
     </div>
 @endsection
+<script>
+    var token = '{{ Session::token() }}';
+    var urlLike = '{{ route('like') }}';
+</script>
+
     
 
