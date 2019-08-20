@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth'], function (){
 });
 
 Route::post('/like',[
-    'uses' => 'PostController@postLikePost',
+    'uses' => 'PostsController@postLikePost',
     'as' => 'like'
 ]);
 
