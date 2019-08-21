@@ -25,6 +25,13 @@
                     {!! $post->mark_text !!}
                 </p>
             </div>
+            <like
+                    :post-id="{{ json_encode($post->id) }}"
+                    :user-id="{{ json_encode($userAuth->id) }}"
+                    :default-Liked="{{ json_encode($defaultLiked) }}"
+                    :default-Count="{{ json_encode($defaultCount) }}"
+
+            ></like>
             @forelse($post->images as $post_image)
                 <img src="{{'/storage/post_img/'.$post_image->path}}" alt="">
             @empty

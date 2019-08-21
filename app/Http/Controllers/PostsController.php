@@ -43,39 +43,29 @@ class PostsController extends Controller
 
             $posts->images()->create([
                 'path' => $filename,
-//            'post_id'=> $request->id,
             ]);
-
-
-//            $post_images = new PostImage();
-//            $post_images->post_id = $request->post_id;
-//            $post_images->path = $filename;
-//            $post_images->save();
         }
-
-//        foreach ($request->file('files') as $index=> $e) {
-//
-//            $post_image = new PostImage();
-////            $ext = $e['image']->guessExtension();
-//            $filename = "{$e['image']->getClientOriginalName()}";
-//            $path = $e['image']->storeAs('images', $filename);
-//            // photosメソッドにより、商品に紐付けられた画像を保存する
-//            $post_image->create(['path'=> $path]);
-//            $post_image->save();
-//        }
-
-
         return redirect()->route('top');
     }
 
-    public function show($post_id)
+    public function show(Post $post)
     {
-        $post = Post::findOrFail($post_id);
-//        $post_image = PostImage::findOrFail($post_id);
+        $userAuth = Auth::user();
+        $defaultCount = count($post->likes);
+        $post->load('likes');
+//        $defaultCount = count($post->likes);
+        $defaultLiked = $post->likes->where('user_id', $userAuth->id)->first();
+        if(count($defaultLiked) == 0) {
+            $defaultLiked == false;
+        } else {
+            $defaultLiked == true;
+        }
 
         return view('posts.show', [
             'post' => $post,
-//            'post_image'=>$post_image,
+            'userAuth' => $userAuth,
+            'defaultLiked' => $defaultLiked,
+            'defaultCount' => $defaultCount
         ]);
     }
 

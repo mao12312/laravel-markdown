@@ -19,7 +19,7 @@
                         <p class="card-text">
                             {!! nl2br(e(str_limit($post->text, 200))) !!}
                         </p>
-                        <a href="{{route('posts.show',['post'=> $post])}}">
+                        <a href="{{route('posts.show',$post->id)}}">
                             詳細
                         </a>
                     </div>
