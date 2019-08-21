@@ -1903,6 +1903,7 @@ __webpack_require__.r(__webpack_exports__);
         user_id: this.userId
       }).then(function (response) {
         _this.liked = true;
+        _this.likeCount = response.data.likeCount;
       })["catch"](function (error) {
         alert(error);
       });
@@ -1915,6 +1916,7 @@ __webpack_require__.r(__webpack_exports__);
         user_id: this.userId
       }).then(function (response) {
         _this2.liked = false;
+        _this2.likeCount = response.data.likeCount;
       })["catch"](function (error) {
         alert(error);
       });

@@ -13,7 +13,9 @@ class LikeController extends Controller
     {
         $like = Like::create(['user_id' => $request->user_id, 'post_id'=>$post->id]);
 
-        return response()->json([]);
+        $likeCount = count(Like::where('post_id',$post->id)->get());
+
+        return response()->json(['likeCount'=> $likeCount]);
     }
 
     public function unlike(Post $post,Request $request)

@@ -32,6 +32,7 @@
                 })
                     .then(response => {
                         this.liked = true
+                        this.likeCount = response.data.likeCount
                     })
                     .catch(error => {
                         alert(error)
@@ -45,6 +46,7 @@
                 })
                     .then(response => {
                         this.liked = false
+                        this.likeCount = response.data.likeCount
                     })
                     .catch(error => {
                         alert(error)
