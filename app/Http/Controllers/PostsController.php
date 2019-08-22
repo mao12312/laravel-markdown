@@ -53,7 +53,6 @@ class PostsController extends Controller
         $userAuth = Auth::user();
         $defaultCount = count($post->likes);
         $post->load('likes');
-//        $defaultCount = count($post->likes);
         $defaultLiked = $post->likes->where('user_id', $userAuth->id)->first();
         if(count($defaultLiked) == 0) {
             $defaultLiked == false;
