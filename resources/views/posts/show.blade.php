@@ -21,7 +21,6 @@
             </h1>
             <div class="wordbreak">
                 <p class="mb-5">
-                    {{--                {!! nl2br(e($post->text)) !!}--}}
                     {!! $post->mark_text !!}
                 </p>
             </div>
