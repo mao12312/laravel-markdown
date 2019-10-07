@@ -36,3 +36,7 @@ Route::post('/like',[
     'as' => 'like'
 ]);
 
+Route::get('/color', 'BooksController@index');
+
+Route::resource('color','BooksController',['only'=>['show','update','edit']]);
+
